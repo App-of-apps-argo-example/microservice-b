@@ -1,0 +1,17 @@
+name: Application CI
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  call-central-pipeline:
+    uses: App-of-apps-argo-example/pipeline-templates/.github/workflows/reusable-build-deploy.yaml@main
+    with:
+      app_name: "microservice-b"
+    secrets:
+      GITOPS_BOT_TOKEN: ${{ secrets.GITOPS_BOT_TOKEN }}
